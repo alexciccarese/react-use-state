@@ -3,9 +3,13 @@ import languages from "./data/languages";
 
 export default function Main() {
   const [selectedDescription, setSelectedDescription] = useState(""); 
+  const [selectedName, setSelectedName] = useState("");
+  const [selectedButton, setSelectedButton] = useState(null)
 
-  const handleOpen = (description) => {
-    setSelectedDescription(description) 
+  const handleSelectLanguage = (item) => {
+    setSelectedName(item.name);
+    setSelectedDescription(item.description) 
+    setSelectedButton(item.id)
   };
 
   return (
@@ -17,31 +21,36 @@ export default function Main() {
           <Buttons
             key={`item-${item.id}`}
             name={item.name}
-            handleOpen={() => handleOpen(item.description)} 
+            isSelected={selectedButton === item.id}
+            handleSelect={() => handleSelectLanguage(item)} 
           />
         ))}
       </div>
 
-      <Content description={selectedDescription} /> 
+      <Content 
+      name={selectedName || "Seleziona un linguaggio"}
+      description={selectedDescription || "Nessuna descrizione disponibile"}
+      /> 
     </div>
   );
 }
 
-function Buttons({ name, handleOpen, isSelected }) {
+function Buttons({ name, handleSelect, isSelected }) {
   return (
     <div className="buttons d-flex justify-content-start mt-3">
       <button type="button" 
-      className="btn btn-primary"
-      onClick={handleOpen}>
+      className={`btn ${isSelected ? "btn-warning" : "btn-primary"}`}
+      onClick={handleSelect}>
         {name}
       </button>
     </div>
   );
 }
 
-function Content({ description }) {
+function Content({ name, description }) {
   return (
     <div className="text">
+      <h4>{name}</h4>
       <p className="card-text">{description}</p>
     </div>
   );
