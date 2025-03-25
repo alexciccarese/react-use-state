@@ -7,9 +7,17 @@ export default function Main() {
   const [selectedButton, setSelectedButton] = useState(null)
 
   const handleSelectLanguage = (item) => {
-    setSelectedName(item.name);
-    setSelectedDescription(item.description) 
-    setSelectedButton(item.id)
+    if (selectedButton === item.id) {
+      // definiamo la deselezione se è selezionato
+      setSelectedName("");
+      setSelectedDescription("");
+      setSelectedButton(null);
+    } else {
+      // Seleziona un bottone "x"
+      setSelectedName(item.name);
+      setSelectedDescription(item.description);
+      setSelectedButton(item.id);
+    }
   };
 
   return (
