@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import Main from './assets/components/main'
 
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-
+      <Main />
     </>
   )
 }
